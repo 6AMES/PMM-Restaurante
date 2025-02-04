@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Seleccionar Mesa"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/viewSeparador"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewSeparador">
+
+            <GridLayout
+                android:id="@+id/gridLayoutMesas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginBottom="9dp"
+                android:columnCount="3"
+                android:rowCount="4">
+
+                <Button
+                    android:id="@+id/mesa1B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa2B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa3B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa4B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="4"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa5B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="5"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa6B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="6"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa7B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="7"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa8B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="8"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa9B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="9"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa10B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa11B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="11"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa12B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="12"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa13B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="13"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa14B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="14"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa15B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="15"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa16B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="16"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa17B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="17"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa18B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="18"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa19B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="19"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa20B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="20"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+
+                <Button
+                    android:id="@+id/mesa21B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="125dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#00CF37"
+                    android:text="21"
+                    android:textColor="@color/white"
+                    android:textSize="48sp"
+                    app:cornerRadius="16dp" />
+            </GridLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
