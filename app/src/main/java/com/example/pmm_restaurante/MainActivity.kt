@@ -25,31 +25,38 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val gridLayoutMesas = findViewById<GridLayout>(R.id.gridLayoutMesas)
+
+        // Mapa para rastrear el estado de cada botón (true = green, false = yellow)
+        val buttonStates = mutableMapOf<Button, Boolean>()
+
         for (i in 0 until gridLayoutMesas.childCount) {
             val button = gridLayoutMesas.getChildAt(i) as Button
-            var isGreen : Boolean = true
+
+            // Inicializar el estado del botón como green
+            buttonStates[button] = true
+
+            // Configurar el clic para navegar a PedidoActivity
             button.setOnClickListener {
                 val mesaNumero = button.text.toString()
                 navigateToPedidoActivity(mesaNumero)
             }
 
-            for (i in 0 until gridLayoutMesas.childCount) {
-                val button = gridLayoutMesas.getChildAt(i) as Button
+            // Configurar el long clic para alternar entre verde y amarillo
+            button.setOnLongClickListener {
+                val isGreen = buttonStates[button] ?: true
 
-                button.setOnLongClickListener {
-                    // Alternar entre green y yellow
-                    if (isGreen) {
-                        // Cambiar a yellow
-                        button.backgroundTintList = ColorStateList.valueOf(Color.YELLOW)
-                        isGreen = false // Actualizar el estado
-                    } else {
-                        // Cambiar a green
-                        button.backgroundTintList = ColorStateList.valueOf(Color.GREEN)
-                        isGreen = true // Actualizar el estado
-                    }
-
-                    true // Indica que el evento ha sido manejado
+                // Cambiar el color según el estado
+                if (isGreen) {
+                    // Cambiar a amarillo
+                    button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.yellow))
+                    buttonStates[button] = false
+                } else {
+                    // Cambiar a verde
+                    button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
+                    buttonStates[button] = true
                 }
+
+                true
             }
         }
     }

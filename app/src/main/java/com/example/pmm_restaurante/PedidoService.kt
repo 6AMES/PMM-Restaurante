@@ -1,11 +1,15 @@
 package com.example.pmm_restaurante
 
+import android.content.Context
+import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 // Modelo para cada plato dentro de un pedido y cantidad
 data class PedidoPlato(
     val plato: Plato,
     var cantidad: Int
 )
-
 // Modelo para el pedido asociado a una mesa
 data class Pedido(
     val mesaId: Int,
@@ -17,18 +21,21 @@ data class Pedido(
     }
 }
 
-// "Servicio" para manejar la lógica de los pedidos
-class PedidoService {
+class PedidoService(private val context: Context) {
 
-    // Mapa para almacenar los pedidos por mesa
-    private val pedidosPorMesa: MutableMap<Int, Pedido> = mutableMapOf()
+    private val PREFS_NAME = "PedidoPrefs"
+    private val PEDIDOS_KEY = "Pedidos"
 
-    // Método para obtener o crear un pedido para una mesa
+    private val sharedPreferences: SharedPreferences by lazy {
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
+    private var pedidosPorMesa: MutableMap<Int, Pedido> = cargarPedidos()
+
     fun obtenerPedidoParaMesa(mesaId: Int): Pedido {
         return pedidosPorMesa.getOrPut(mesaId) { Pedido(mesaId) }
     }
 
-    // Método para incrementar la cantidad de un plato en el pedido
     fun incrementarPlato(mesaId: Int, plato: Plato) {
         val pedido = obtenerPedidoParaMesa(mesaId)
         val itemExistente = pedido.items.find { it.plato.id == plato.id }
@@ -38,9 +45,9 @@ class PedidoService {
         } else {
             pedido.items.add(PedidoPlato(plato, cantidad = 1))
         }
+        guardarPedidos()
     }
 
-    // Método para decrementar la cantidad de un plato en el pedido
     fun decrementarPlato(mesaId: Int, platoId: Int): Boolean {
         val pedido = pedidosPorMesa[mesaId] ?: return false
         val item = pedido.items.find { it.plato.id == platoId } ?: return false
@@ -50,23 +57,48 @@ class PedidoService {
         } else {
             pedido.items.remove(item)
         }
+        guardarPedidos()
         return true
     }
 
-    // Método para eliminar un plato del pedido
-    fun eliminarPlatoDelPedido(mesaId: Int, platoId: Int): Boolean {
+    fun eliminarBlatoDelPedido(mesaId: Int, platoId: Int): Boolean {
         val pedido = pedidosPorMesa[mesaId] ?: return false
-        return pedido.items.removeIf { it.plato.id == platoId }
+        val eliminado = pedido.items.removeIf { it.plato.id == platoId }
+        if (eliminado) {
+            guardarPedidos()
+        }
+        return eliminado
     }
 
-    // Método para obtener todos los pedidos
     fun obtenerTodosLosPedidos(): Map<Int, Pedido> {
         return pedidosPorMesa.toMap()
     }
 
-    // Método para limpiar el pedido de una mesa
     fun limpiarPedido(mesaId: Int): Boolean {
-        return pedidosPorMesa.remove(mesaId) != null
+        val eliminado = pedidosPorMesa.remove(mesaId) != null
+        if (eliminado) {
+            guardarPedidos()
+        }
+        return eliminado
     }
 
+    private fun cargarPedidos(): MutableMap<Int, Pedido> {
+        val gson = Gson()
+        val json = sharedPreferences.getString(PEDIDOS_KEY, null)
+
+        // Si hay datos almacenados, deserializarlos; de lo contrario, devolver un mapa vacío
+        return if (json != null) {
+            val type = object : TypeToken<Map<Int, Pedido>>() {}.type
+            val map: Map<Int, Pedido> = gson.fromJson(json, type)
+            map.toMutableMap() // Convertir explícitamente a MutableMap
+        } else {
+            mutableMapOf()
+        }
+    }
+
+    private fun guardarPedidos() {
+        val gson = Gson()
+        val json = gson.toJson(pedidosPorMesa)
+        sharedPreferences.edit().putString(PEDIDOS_KEY, json).apply()
+    }
 }

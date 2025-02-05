@@ -84,7 +84,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonInfo"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"

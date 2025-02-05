@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PedidoActivity">
+    android:layout_height="match_parent">
 
+    <!-- Imagen del plato -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
@@ -43,30 +43,6 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:translationX="-8dp">
-
-                <LinearLayout
-                    android:id="@+id/filtrosContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-            </HorizontalScrollView>
-        </androidx.appcompat.widget.Toolbar>
-
         <View
             android:id="@+id/viewSeparador"
             android:layout_width="match_parent"
@@ -74,27 +50,63 @@
             android:background="@color/black" />
 
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewSeparador">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/platosContainer"
+            <ImageView
+                android:id="@+id/imageViewPlato"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop" />
 
-                <!-- Aquí se añaden dinámicamente los contenedores de los platos -->
+            <TextView
+                android:id="@+id/textViewNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Nombre del Plato"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewDescripcion1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Descripción del plato"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        </ScrollView>
+            <TextView
+                android:id="@+id/textViewPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Precio: €"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewCategoria1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Categoría: "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
+    <!-- Nombre del plato -->
+
+    <!-- Descripción del plato -->
+
+    <!-- Precio del plato -->
+
+    <!-- Categoría del plato -->
 </androidx.constraintlayout.widget.ConstraintLayout>
