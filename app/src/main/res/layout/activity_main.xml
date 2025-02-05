@@ -56,10 +56,7 @@
                 android:id="@+id/gridLayoutMesas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginBottom="9dp"
+                android:layout_margin="9dp"
                 android:columnCount="3"
                 android:rowCount="4">
 
