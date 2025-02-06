@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
     tools:context=".PedidoActivity">
 
+    <!-- Contenedor principal -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtonLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Toolbar principal -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -37,12 +40,12 @@
             <ImageButton
                 android:id="@+id/buttonVolver"
                 android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:background="@color/white"
                 app:srcCompat="?attr/homeAsUpIndicator" />
-
         </androidx.appcompat.widget.Toolbar>
 
+        <!-- Segundo Toolbar para filtros -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
@@ -61,23 +64,24 @@
                     android:id="@+id/filtrosContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
+                    android:orientation="horizontal"></LinearLayout>
             </HorizontalScrollView>
         </androidx.appcompat.widget.Toolbar>
 
+        <!-- Separador -->
         <View
             android:id="@+id/viewSeparador"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/black" />
 
-
+        <!-- ScrollView para los platos -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/bottomButtonLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewSeparador">
@@ -85,16 +89,102 @@
             <LinearLayout
                 android:id="@+id/platosContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
-
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:backgroundTint="@color/white"
+                android:orientation="vertical">
                 <!-- Aquí se añaden dinámicamente los contenedores de los platos -->
-
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>
 
+    <!-- Botón fijo en la parte inferior -->
+    <LinearLayout
+        android:id="@+id/bottomButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Texto con el número de artículos seleccionados -->
+        <TextView
+            android:id="@+id/textViewArticulosSeleccionados"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0 Artículos seleccionados"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <!-- Botón "Ver pedido" -->
+        <Button
+            android:id="@+id/buttonVerPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:padding="8dp"
+            android:text="Ver pedido"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <!-- Menú desplegable para el resumen del pedido -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pedidoResumenLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- ScrollView para mostrar los productos seleccionados -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/textViewTotalPedido"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/resumenPedidosContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp" />
+        </ScrollView>
+
+        <!-- TextView para mostrar el precio total del pedido -->
+        <TextView
+            android:id="@+id/textViewTotalPedido"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="16dp"
+            android:text="Total: 0€"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/buttonEnviarPedido"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Botón "Enviar pedido" -->
+        <Button
+            android:id="@+id/buttonEnviarPedido"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:padding="16dp"
+            android:text="Enviar pedido"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

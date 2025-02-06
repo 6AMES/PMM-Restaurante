@@ -1,0 +1,36 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@color/white">
+
+    <!-- Nombre del plato -->
+    <TextView
+        android:id="@+id/textViewNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nombre del Plato"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Cantidad -->
+    <TextView
+        android:id="@+id/textViewCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x1"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp" />
+
+    <!-- Precio total del plato -->
+    <TextView
+        android:id="@+id/textViewPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12.99€"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp" />
+</LinearLayout>
