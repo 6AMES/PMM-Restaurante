@@ -2,6 +2,7 @@ package com.example.pmm_restaurante
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +16,7 @@ class ProductoDetalleActivity : AppCompatActivity() {
     private lateinit var platoService: PlatoService
     private lateinit var pedidoService: PedidoService
     private var mesaNumero: String? = null
+    private lateinit var platoCompleto: Plato
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,18 +57,29 @@ class ProductoDetalleActivity : AppCompatActivity() {
 
         // Recuperar los datos del plato enviados desde PedidoActivity
         val platoId = intent.getIntExtra("plato_id", -1)
-        val platoNombre = intent.getStringExtra("plato_nombre")
-        val platoDescripcion = intent.getStringExtra("plato_descripcion")
-        val platoAlergenos = intent.getStringExtra("plato_alergenos")
+        val platoNombre = intent.getStringExtra("plato_nombre") ?: "Sin nombre"
+        val platoDescripcion = intent.getStringExtra("plato_descripcion") ?: "Sin descripción"
+        val platoAlergenos = intent.getStringExtra("plato_alergenos") ?: "Sin alérgenos"
         val platoPrecio = intent.getDoubleExtra("plato_precio", 0.0)
-        val platoCategoria = intent.getStringExtra("plato_categoria")
-        val platoImagen = intent.getStringExtra("plato_imagen")
+        val platoCategoria = intent.getStringExtra("plato_categoria") ?: "Sin categoría"
+        val platoImagen = intent.getStringExtra("plato_imagen") ?: "Sin imágen"
+
+        // Crear el objeto Plato completo
+        platoCompleto = Plato(
+            id = intent.getIntExtra("plato_id", -1),
+            nombre = platoNombre,
+            descripcion = platoDescripcion,
+            alergenos = platoAlergenos,
+            precio = platoPrecio,
+            categoria = platoCategoria,
+            imagen = platoImagen
+        )
 
         // Mostrar los detalles del plato
         findViewById<TextView>(R.id.textViewNombre).text = platoNombre
         findViewById<TextView>(R.id.textViewDescripcion1).text = platoDescripcion
         findViewById<TextView>(R.id.textViewPrecio).text = "${platoPrecio}€"
-        findViewById<TextView>(R.id.textViewCategoria1).text = platoCategoria
+        findViewById<TextView>(R.id.textViewAlergenos1).text = "Alérgenos: $platoAlergenos"
 
         // Configurar la imagen del plato
         val imageViewPlato = findViewById<ImageView>(R.id.imageViewPlato)
@@ -77,6 +90,22 @@ class ProductoDetalleActivity : AppCompatActivity() {
             } else {
                 imageViewPlato.setImageResource(R.drawable.imagen_predeterminada)
             }
+        }
+
+        // Configurar el botón Añadir al pedido
+        val buttonAñadir = findViewById<Button>(R.id.buttonAñadir)
+        buttonAñadir.setOnClickListener {
+            // Asegurarse de que hay un número de mesa válido
+            val mesaId = mesaNumero?.toInt() ?: run {
+                Toast.makeText(this, "Error: Mesa no válida", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Inicializar PedidoService
+            val pedidoService = PedidoService(this)
+
+            // Añadir una unidad del plato al pedido
+            pedidoService.incrementarPlato(mesaId, platoCompleto)
         }
     }
 }

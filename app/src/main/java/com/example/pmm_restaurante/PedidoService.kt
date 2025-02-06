@@ -90,7 +90,7 @@ class PedidoService(private val context: Context) {
         return if (json != null) {
             val type = object : TypeToken<Map<Int, Pedido>>() {}.type
             val map: Map<Int, Pedido> = gson.fromJson(json, type)
-            map.toMutableMap() // Convertir explícitamente a MutableMap
+            map.toMutableMap()
         } else {
             mutableMapOf()
         }

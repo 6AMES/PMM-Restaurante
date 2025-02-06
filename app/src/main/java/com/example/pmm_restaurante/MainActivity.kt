@@ -2,15 +2,11 @@ package com.example.pmm_restaurante
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.*
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,16 +20,21 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val gridLayoutMesas = findViewById<GridLayout>(R.id.gridLayoutMesas)
-
         // Mapa para rastrear el estado de cada botón (true = green, false = yellow)
-        val buttonStates = mutableMapOf<Button, Boolean>()
+        val gridLayoutMesas = findViewById<GridLayout>(R.id.gridLayoutMesas)
+        val mesaReservaService = MesaReservaService(this)
 
         for (i in 0 until gridLayoutMesas.childCount) {
             val button = gridLayoutMesas.getChildAt(i) as Button
+            val mesaId = i + 1 // Suponemos que los IDs de las mesas son secuenciales
 
-            // Inicializar el estado del botón como green
-            buttonStates[button] = true
+            // Restaurar el estado del botón
+            val isGreen = mesaReservaService.getEstadoMesa(mesaId)
+            button.backgroundTintList = if (isGreen) {
+                ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
+            } else {
+                ColorStateList.valueOf(ContextCompat.getColor(this, R.color.yellow))
+            }
 
             // Configurar el clic para navegar a PedidoActivity
             button.setOnClickListener {
@@ -41,21 +42,14 @@ class MainActivity : AppCompatActivity() {
                 navigateToPedidoActivity(mesaNumero)
             }
 
-            // Configurar el long clic para alternar entre verde y amarillo
+            // Configurar el long clic para alternar el estado
             button.setOnLongClickListener {
-                val isGreen = buttonStates[button] ?: true
-
-                // Cambiar el color según el estado
-                if (isGreen) {
-                    // Cambiar a amarillo
-                    button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.yellow))
-                    buttonStates[button] = false
+                val nuevoEstado = mesaReservaService.toggleEstadoMesa(mesaId)
+                button.backgroundTintList = if (nuevoEstado) {
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
                 } else {
-                    // Cambiar a verde
-                    button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
-                    buttonStates[button] = true
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.yellow))
                 }
-
                 true
             }
         }
