@@ -6,6 +6,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import com.example.pmm_restaurante.*
 
 class ProductoDetalleActivity : AppCompatActivity() {
 
@@ -102,6 +103,13 @@ class ProductoDetalleActivity : AppCompatActivity() {
 
             // Añadir una unidad del plato al pedido
             pedidoService.incrementarPlato(mesaId, platoCompleto)
+
+            // Enviar un resultado a PedidoActivity
+            val resultIntent = Intent()
+            setResult(RESULT_OK, resultIntent)
+
+            // Finalizar la actividad
+            finish()
         }
     }
 }

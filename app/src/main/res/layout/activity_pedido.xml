@@ -90,6 +90,8 @@
                 android:id="@+id/platosContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 android:orientation="vertical">
@@ -186,5 +188,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

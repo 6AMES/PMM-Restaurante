@@ -33,7 +33,9 @@ class PedidoService(private val context: Context) {
     private var pedidosPorMesa: MutableMap<Int, Pedido> = cargarPedidos()
 
     fun obtenerPedidoParaMesa(mesaId: Int): Pedido {
-        return pedidosPorMesa.getOrPut(mesaId) { Pedido(mesaId) }
+        return pedidosPorMesa.getOrPut(mesaId) {
+            Pedido(mesaId)
+        }
     }
 
     fun incrementarPlato(mesaId: Int, plato: Plato) {
@@ -85,8 +87,6 @@ class PedidoService(private val context: Context) {
     private fun cargarPedidos(): MutableMap<Int, Pedido> {
         val gson = Gson()
         val json = sharedPreferences.getString(PEDIDOS_KEY, null)
-
-        // Si hay datos almacenados, deserializarlos; de lo contrario, devolver un mapa vacío
         return if (json != null) {
             val type = object : TypeToken<Map<Int, Pedido>>() {}.type
             val map: Map<Int, Pedido> = gson.fromJson(json, type)
