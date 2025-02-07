@@ -89,7 +89,7 @@
             <LinearLayout
                 android:id="@+id/platosContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="9dp"
                 android:layout_marginRight="9dp"
                 android:background="@color/white"
@@ -153,6 +153,7 @@
             android:theme="?attr/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/toolbar_title2"
                 android:layout_width="wrap_content"
@@ -162,6 +163,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <ImageButton
                 android:id="@+id/buttonVolver2"
                 android:layout_width="50dp"
@@ -173,15 +175,15 @@
         <!-- ScrollView para mostrar los productos seleccionados -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/textViewTotalPedido"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar3">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar3">
+
             <LinearLayout
                 android:id="@+id/resumenPedidosContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="16dp" />
         </ScrollView>
@@ -197,22 +199,28 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/buttonEnviarPedido"
+            app:layout_constraintBottom_toTopOf="@id/cajaBoton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/buttonEnviarPedido"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/cajaBoton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:padding="16dp"
-            android:text="Enviar pedido"
-            android:textColor="@color/white"
-            android:textColorLink="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/buttonEnviarPedido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:padding="16dp"
+                android:text="Enviar pedido"
+                android:textColor="@color/white"
+                android:textColorLink="@color/black" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -87,28 +87,5 @@ class ProductoDetalleActivity : AppCompatActivity() {
                 imageViewPlato.setImageResource(R.drawable.imagen_predeterminada)
             }
         }
-
-        // Configurar el botón Añadir al pedido
-        val buttonAñadir = findViewById<Button>(R.id.buttonAñadir)
-        buttonAñadir.setOnClickListener {
-            // Asegurarse de que hay un número de mesa válido
-            val mesaId = mesaNumero?.toInt() ?: run {
-                Toast.makeText(this, "Error: Mesa no válida", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Inicializar PedidoService
-            val pedidoService = PedidoService(this)
-
-            // Añadir una unidad del plato al pedido
-            pedidoService.incrementarPlato(mesaId, platoCompleto)
-
-            // Enviar un resultado a PedidoActivity
-            val resultIntent = Intent()
-            setResult(RESULT_OK, resultIntent)
-
-            // Finalizar la actividad
-            finish()
-        }
     }
 }
