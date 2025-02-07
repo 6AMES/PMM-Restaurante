@@ -144,6 +144,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/toolbar_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Pedido Mesa"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/buttonVolver2"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                app:srcCompat="?attr/homeAsUpIndicator" />
+        </androidx.appcompat.widget.Toolbar>
+
         <!-- ScrollView para mostrar los productos seleccionados -->
         <ScrollView
             android:layout_width="match_parent"
@@ -151,8 +177,7 @@
             app:layout_constraintBottom_toTopOf="@id/textViewTotalPedido"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            app:layout_constraintTop_toBottomOf="@id/toolbar3">
             <LinearLayout
                 android:id="@+id/resumenPedidosContainer"
                 android:layout_width="match_parent"
@@ -176,15 +201,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Botón "Enviar pedido" -->
         <Button
             android:id="@+id/buttonEnviarPedido"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
+            android:background="@color/black"
             android:padding="16dp"
             android:text="Enviar pedido"
             android:textColor="@color/white"
+            android:textColorLink="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

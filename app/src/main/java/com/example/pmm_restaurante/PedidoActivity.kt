@@ -3,12 +3,15 @@ package com.example.pmm_restaurante
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.example.pmm_restaurante.*
 
 class PedidoActivity : AppCompatActivity() {
 
@@ -22,10 +25,26 @@ class PedidoActivity : AppCompatActivity() {
     private lateinit var textViewArticulosSeleccionados: TextView
     private lateinit var buttonVerPedido: Button
     private lateinit var pedidoResumenLayout: ConstraintLayout
+    private lateinit var detalleActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedido)
+
+        // Registrar el ActivityResultLauncher
+        detalleActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                // Obtener el número de mesa
+                val mesaNumeroStr = intent.getStringExtra("mesaNumero")
+                if (!mesaNumeroStr.isNullOrEmpty() && mesaNumeroStr.matches(Regex("\\d+"))) {
+                    val mesaNumero = mesaNumeroStr.toInt()
+
+                    // Actualizar la interfaz de usuario
+                    actualizarNumArticulosSeleccionados(mesaNumero)
+                    cargarPlatos(categoriaSeleccionada, mesaNumero)
+                }
+            }
+        }
 
         // Configuración inicial de la interfaz
         configurarUI()
@@ -43,6 +62,13 @@ class PedidoActivity : AppCompatActivity() {
         cargarPlatos(null, mesaNumero)
         configurarBotonVerPedido(mesaNumero)
         actualizarNumArticulosSeleccionados(mesaNumero)
+
+        // Configurar el botón "Volver" dentro del desplegable
+        val buttonVolver2 = findViewById<ImageButton>(R.id.buttonVolver2)
+        buttonVolver2.setOnClickListener {
+            // Ocultar el desplegable
+            pedidoResumenLayout.visibility = View.GONE
+        }
     }
 
     // Configura la interfaz de usuario inicial
@@ -103,7 +129,21 @@ class PedidoActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textViewTotalPedido).text = "Total: ${pedido.calcularTotal()}€"
         findViewById<Button>(R.id.buttonEnviarPedido).setOnClickListener {
             Toast.makeText(this, "Pedido enviado", Toast.LENGTH_SHORT).show()
-            pedidoResumenLayout.visibility = View.GONE
+
+            // Obtener el número de mesa
+            val mesaNumeroStr = intent.getStringExtra("mesaNumero")
+            if (!mesaNumeroStr.isNullOrEmpty() && mesaNumeroStr.matches(Regex("\\d+"))) {
+                val mesaId = mesaNumeroStr.toInt()
+
+                // Crear un Intent para devolver el resultado
+                val resultIntent = Intent()
+                resultIntent.putExtra("mesaId", mesaId)
+                setResult(RESULT_OK, resultIntent)
+                println("Resultado enviado: mesaId = $mesaId")
+            }
+
+            // Cerrar la actividad
+            finish()
         }
     }
 
@@ -213,32 +253,29 @@ class PedidoActivity : AppCompatActivity() {
 
     // Navega a la actividad de detalles del producto
     private fun navigateToProductoDetalleActivity(platoResumen: PlatoResumen) {
+        // Obtener el plato completo desde PlatoService
         val platoCompleto = platoService.obtenerPlatoPorId(platoResumen.id) ?: run {
             Toast.makeText(this, "No se encontró el plato", Toast.LENGTH_SHORT).show()
             return
         }
 
+        // Obtener el número de mesa actual
         val mesaNumero = intent.getStringExtra("mesaNumero") ?: "Sin número"
-        val intent = Intent(this, ProductoDetalleActivity::class.java).apply {
-            putExtra("plato_id", platoCompleto.id)
-            putExtra("plato_nombre", platoCompleto.nombre)
-            putExtra("plato_descripcion", platoCompleto.descripcion)
-            putExtra("plato_alergenos", platoCompleto.alergenos)
-            putExtra("plato_precio", platoCompleto.precio)
-            putExtra("plato_categoria", platoCompleto.categoria)
-            putExtra("plato_imagen", platoCompleto.imagen)
-            putExtra("mesaNumero", mesaNumero)
-        }
-        startActivityForResult(intent, 100)
-    }
 
-    // Maneja el resultado de ProductoDetalleActivity
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            val mesaNumero = intent.getStringExtra("mesaNumero")?.toIntOrNull() ?: return
-            actualizarNumArticulosSeleccionados(mesaNumero)
-            cargarPlatos(categoriaSeleccionada, mesaNumero)
-        }
+        // Crear un Intent para navegar a ProductoDetalleActivity
+        val intent = Intent(this, ProductoDetalleActivity::class.java)
+
+        // Enviar los campos del plato como extras
+        intent.putExtra("plato_id", platoCompleto.id)
+        intent.putExtra("plato_nombre", platoCompleto.nombre)
+        intent.putExtra("plato_descripcion", platoCompleto.descripcion)
+        intent.putExtra("plato_alergenos", platoCompleto.alergenos)
+        intent.putExtra("plato_precio", platoCompleto.precio)
+        intent.putExtra("plato_categoria", platoCompleto.categoria)
+        intent.putExtra("plato_imagen", platoCompleto.imagen)
+        intent.putExtra("mesaNumero", mesaNumero)
+
+        // Iniciar la actividad usando el ActivityResultLauncher
+        detalleActivityResultLauncher.launch(intent)
     }
 }

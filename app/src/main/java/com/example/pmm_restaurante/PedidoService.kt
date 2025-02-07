@@ -63,7 +63,7 @@ class PedidoService(private val context: Context) {
         return true
     }
 
-    fun eliminarBlatoDelPedido(mesaId: Int, platoId: Int): Boolean {
+    fun eliminarPlatoDelPedido(mesaId: Int, platoId: Int): Boolean {
         val pedido = pedidosPorMesa[mesaId] ?: return false
         val eliminado = pedido.items.removeIf { it.plato.id == platoId }
         if (eliminado) {
