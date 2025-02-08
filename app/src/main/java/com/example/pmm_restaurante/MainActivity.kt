@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in 0 until gridLayoutMesas.childCount) {
             val button = gridLayoutMesas.getChildAt(i) as Button
-            val mesaId = i + 1 // Suponemos que los IDs de las mesas son secuenciales
+            val mesaId = i + 1
 
             // Restaurar el estado del botón
             val isGreen = mesaReservaService.getEstadoMesa(mesaId)
